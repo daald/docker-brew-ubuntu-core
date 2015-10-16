@@ -26,3 +26,8 @@ In a Dockerfile, you will now have to use
 instead of
 
     FROM ubuntu:wily
+
+If you want to run the container directly, simply type:
+
+    $ docker run ubuntu32:wily uname -m
+    i686
