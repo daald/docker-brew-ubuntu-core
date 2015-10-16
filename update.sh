@@ -9,7 +9,8 @@ if [ ${#versions[@]} -eq 0 ]; then
 fi
 versions=( "${versions[@]%/}" )
 
-arch="$(dpkg --print-architecture)"
+#arch="$(dpkg --print-architecture)"
+arch=i386
 for v in "${versions[@]}"; do
 	(
 		cd "$v"
@@ -27,8 +28,13 @@ for v in "${versions[@]}"; do
 FROM scratch
 ADD $thisTar /
 EOF
-		
+
 		cat >> Dockerfile <<'EOF'
+
+# docker doesn't officially support 32bit. to make "uname -m" work (which is
+# necessary at least for compile jobs), we need to prefix linux32 to each
+# command
+ENTRYPOINT ["/usr/bin/linux32", "--"]
 
 # a few minor docker-specific tweaks
 # see https://github.com/docker/docker/blob/master/contrib/mkimage/debootstrap
@@ -62,5 +68,5 @@ done
 user="$(docker info | awk '/^Username:/ { print $2 }')"
 [ -z "$user" ] || user="$user/"
 for v in "${versions[@]}"; do
-	( set -x; docker build -t "${user}ubuntu-core:$v" "$v" )
+	( set -x; docker build -t "${user}ubuntu32:$v" "$v" )
 done
