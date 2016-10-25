@@ -4,18 +4,19 @@ This is a copy of the official Ubuntu docker creation script in https://github.c
 ## Usage:
 run:
 
-    ./update.sh trusty vivid wily precise
+    ./update.sh trusty wily precise xenial
 
 (Note: sudo is *not* necessary because the rootfs is downloaded and not generated)
 
 ## Result
 
     $ docker images
-    REPOSITORY   TAG       IMAGE ID       CREATED          VIRTUAL SIZE
-    ubuntu32     precise   28e622f77681   31 seconds ago   115 MB
-    ubuntu32     vivid     f15a860d7d00   45 seconds ago   129.5 MB
-    ubuntu32     wily      1eb8a08208f5   36 minutes ago   131.2 MB
-    ubuntu32     trusty    1eb7e6ed0a7b   36 minutes ago   183.6 MB
+    REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+    ubuntu32     xenial    b9d83c58c531   4 minutes ago    126.6 MB
+    ubuntu32     precise   43ba054779c9   4 minutes ago     92.86 MB
+    ubuntu32     wily      be9db443ac78   4 minutes ago    135.1 MB
+    ubuntu32     trusty    e512c5ca1c0d   4 minutes ago    177.7 MB
+
 
 ## Usage
 

@@ -13,7 +13,8 @@ versions=( "${versions[@]%/}" )
 arch=i386
 for v in "${versions[@]}"; do
 	(
-		cd "$v"
+		[ -d "ubuntu-$v/" ] || mkdir "ubuntu-$v/"
+		cd "ubuntu-$v/"
 		thisTarBase="ubuntu-$v-core-cloudimg-$arch"
 		thisTar="$thisTarBase-root.tar.gz"
 		baseUrl="https://partner-images.canonical.com/core/$v/current"
@@ -68,5 +69,5 @@ done
 user="$(docker info | awk '/^Username:/ { print $2 }')"
 [ -z "$user" ] || user="$user/"
 for v in "${versions[@]}"; do
-	( set -x; docker build -t "${user}ubuntu32:$v" "$v" )
+	( set -x; docker build -t "${user}ubuntu32:$v" "ubuntu-$v/" )
 done
